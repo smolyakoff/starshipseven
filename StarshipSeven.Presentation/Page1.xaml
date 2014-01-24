@@ -1,0 +1,14 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="StarshipSeven.Presentation.Page1"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="640" Height="480"
+	WindowWidth="640" WindowHeight="480">
+
+	<Grid x:Name="LayoutRoot">
+		<TextBlock Margin="91,177,256,193" TextWrapping="Wrap" Text="dfsggagdgg"/>
+	</Grid>
+</Page>

@@ -1,0 +1,23 @@
+﻿<Application x:Class="StarshipSeven.Presentation.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 StartupUri="GameCreator.xaml">
+    <Application.Resources>
+         
+    	<ResourceDictionary>
+    		<ResourceDictionary.MergedDictionaries>
+    			<ResourceDictionary Source="Styles/CoreStyles.xaml"/>
+    			<ResourceDictionary Source="Resources/CoreResources.xaml"/>
+    			<ResourceDictionary Source="Styles/CustomControlsStyles.xaml"/>
+    			<ResourceDictionary Source="Templates/CoreTemplates.xaml"/>
+    			<ResourceDictionary Source="Styles/IconButtonStyle.xaml"/>
+    			<ResourceDictionary Source="Resources/CoreConverters.xaml"/>
+    			<ResourceDictionary Source="Templates/CoreDataTemplates.xaml"/>
+    			<ResourceDictionary Source="Templates/ListBoxTemplate.xaml"/>
+    			<ResourceDictionary Source="Templates/MapListBox.xaml"/>
+    			<ResourceDictionary Source="Templates/StatisticsDataGrid.xaml"/>
+    		</ResourceDictionary.MergedDictionaries>
+    	</ResourceDictionary>
+         
+    </Application.Resources>
+</Application>

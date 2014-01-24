@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{60C6E2E5-0B20-41E9-BCD5-D20519AD5114}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StarshipSeven.GameEntities</RootNamespace>
+    <AssemblyName>StarshipSeven.GameEntities</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttackFleet.cs" />
+    <Compile Include="BaseGameEntity.cs" />
+    <Compile Include="ComputerPlayer.cs" />
+    <Compile Include="DefenseFleet.cs" />
+    <Compile Include="Events\BattleEventArgs.cs" />
+    <Compile Include="Events\EndTurnEventArgs.cs" />
+    <Compile Include="Events\FleetDeadEventArgs.cs" />
+    <Compile Include="Exceptions\BaseEntityException.cs" />
+    <Compile Include="Exceptions\CheatingException.cs" />
+    <Compile Include="Exceptions\GameLogicException.cs" />
+    <Compile Include="Exceptions\ItemDuplicateException.cs" />
+    <Compile Include="Exceptions\ItemNotFoundException.cs" />
+    <Compile Include="Exceptions\TypeMismatchException.cs" />
+    <Compile Include="Factories\GameFactory.cs" />
+    <Compile Include="Factories\Helpers\MapGenerator.cs" />
+    <Compile Include="Factories\Helpers\Segment.cs" />
+    <Compile Include="Factories\PlayerFactory.cs" />
+    <Compile Include="Fleet.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameStatistics.cs" />
+    <Compile Include="HumanPlayer.cs" />
+    <Compile Include="Managers\GameStateManager.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="NeutralPlayer.cs" />
+    <Compile Include="Planet.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StarshipSeven.DataInterfaces\StarshipSeven.DataInterfaces.csproj">
+      <Project>{30F02961-DF68-46F6-A8E0-9F1EAAC33479}</Project>
+      <Name>StarshipSeven.DataInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StarshipSeven.GameInterfaces\StarshipSeven.GameInterfaces.csproj">
+      <Project>{7B2A9CA7-986E-4160-BC37-2C2867C7FC26}</Project>
+      <Name>StarshipSeven.GameInterfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>COPY "$(TargetPath)" "$(SolutionDir)StarshipSeven.Presentation\bin\$(ConfigurationName)\$(TargetName).dll" /y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

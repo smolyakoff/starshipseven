@@ -1,0 +1,11 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<SolidColorBrush x:Key="DefaultBackground" Color="#FF040A29"/>
+	<SolidColorBrush x:Key="DefaultBorderColor" Color="#FFBA0000"/>
+	<SolidColorBrush x:Key="ButtonBorderColor" Color="#FF2B00FF"/>
+	<SolidColorBrush x:Key="ButtonBackgroundColor" Color="#FF0B111F"/>
+	<SolidColorBrush x:Key="DefaultTextColor" Color="White"/>
+	<SolidColorBrush x:Key="ListBoxScrollThumbColor" Color="#FFC1CC00"/>
+	<!-- Resource dictionary entries should be defined here. -->
+</ResourceDictionary>

@@ -1,0 +1,456 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:s="clr-namespace:StarshipSeven.Presentation.Styles"
+	xmlns:wpfEx="clr-namespace:Xceed.Wpf.Toolkit;assembly=WPFToolkit.Extended"
+	mc:Ignorable="d" 
+	x:Class="StarshipSeven.Presentation.MainGame"
+	x:Name="MainGamePage"
+	FlowDirection="LeftToRight"
+	MinHeight="480"
+	MinWidth="800"
+	d:DesignWidth="800"
+	d:DesignHeight="480"
+	ShowsNavigationUI="False" Loaded="MainGamePage_Loaded">
+
+	<Grid x:Name="LayoutRoot" Style="{StaticResource RootGridStyle}">
+		
+		<Grid Margin="8">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+		
+			<Grid Grid.Row="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				
+				<Ellipse Grid.Column="0" 
+				Width="30" Height="30"
+				Margin="8,0"
+				Panel.ZIndex="0">
+					<Ellipse.Fill>
+						<SolidColorBrush Color="{Binding Game.CurrentPlayer.Color}" Opacity="0.3"/>
+					</Ellipse.Fill>
+				</Ellipse>
+				
+				<Button x:Name="menuButton" Grid.Column="0"
+				Width="20"
+				Height="20"
+				Panel.ZIndex="1"
+				Template="{StaticResource MenuButtonTemplate}" 
+				ToolTip="Menu"
+				Foreground="{StaticResource ButtonBorderColor}" Click="menuButton_Click"/>
+				
+				<TextBlock Grid.Column="1"
+				Margin="8,0"
+				Text="{Binding Game.CurrentPlayer.Name}"
+				Style="{StaticResource GameInfoLabelStyle}"
+				VerticalAlignment="Center"/>
+				
+				<Image Grid.ColumnSpan="4"
+				HorizontalAlignment="Center" 
+				Height="50"
+				Source="Images/logo2.png"/>
+				
+				<TextBlock Grid.Column="3"
+				Text="Turn:"
+				Style="{StaticResource GameInfoLabelStyle}"
+				VerticalAlignment="Center"/>
+				
+				<TextBlock Grid.Column="4"
+				Margin="8,0"
+				Text="{Binding Game.CurrentTurn}"
+				Style="{StaticResource GameInfoLabelStyle}"
+				VerticalAlignment="Center"/>
+			</Grid>
+			
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="5.5*"/>
+					<ColumnDefinition Width="4.5*"/>
+				</Grid.ColumnDefinitions>
+				
+				<Grid Grid.Column="0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="7.5*"/>
+						<RowDefinition Height="2.5*"/>
+					</Grid.RowDefinitions>
+					
+					<Grid Grid.Row="0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						
+						<TextBlock Grid.Column="0" Text="Map"
+						Style="{StaticResource GameCreatorLabelStyle}"
+						VerticalAlignment="Center">
+							<TextBlock.LayoutTransform>
+								<RotateTransform Angle="-90"/>
+							</TextBlock.LayoutTransform>
+						</TextBlock>
+						
+						<Border Grid.Column="1" Style="{StaticResource GeneralBorderStyle}">
+							<ListBox Style="{StaticResource MapListBoxStyle}"
+							Name="mapListBox"
+							BorderThickness="0"
+							HorizontalContentAlignment="Stretch"
+							VerticalContentAlignment="Stretch"
+							ItemsSource="{Binding MapWrapper.Tiles}"
+							ItemTemplate="{DynamicResource MapItemTemplate}" 
+                            MouseDoubleClick="mapListBox_MouseDoubleClick" 
+                            MouseRightButtonUp="mapListBox_MouseRightButtonUp" 
+                            SelectionChanged="mapListBox_SelectionChanged">
+								<ListBox.ItemContainerStyleSelector>
+									<s:PlanetStyleSelector
+									EmptyStyle="{StaticResource EmptyPlanetContainerTemplate}"
+									WeakPlanetStyle="{StaticResource WeakPlanetContainerTemplate}"
+									NormalPlanetStyle="{StaticResource NormalPlanetContainerTemplate}"
+									DifficultPlanetStyle="{StaticResource DifficultPlanetContainerTemplate}"/>	
+								</ListBox.ItemContainerStyleSelector>
+								
+							</ListBox>
+						</Border>
+					</Grid>
+					
+					<Grid Grid.Row="1">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						
+						<TextBlock Grid.Column="0" Text="Events"
+						Style="{StaticResource GameCreatorLabelStyle}"
+						VerticalAlignment="Center">
+							<TextBlock.LayoutTransform>
+								<RotateTransform Angle="-90"/>
+							</TextBlock.LayoutTransform>
+						</TextBlock>
+						
+						<Border Grid.Column="1" Style="{StaticResource GeneralBorderStyle}">
+							<ListBox 
+							Template="{DynamicResource CustomListBoxTemplate}" 
+							Style="{DynamicResource DefaultListBoxStyle}"
+							ItemsSource="{Binding Events}" 
+							DisplayMemberPath="Message"
+							TextBlock.FontSize="10pt">
+								<ListBox.ItemContainerStyleSelector>
+									<s:EventStyleSelector 
+									HighPriorityEventStyle="{StaticResource HighPriorityEventStyle}"
+									MediumPriorityEventStyle="{StaticResource MediumPriorityEventStyle}"
+									LowPriorityEventStyle="{StaticResource LowPriorityEventStyle}"/>
+								</ListBox.ItemContainerStyleSelector>
+							</ListBox>
+							
+						</Border>
+					</Grid>
+					
+				</Grid>
+				
+				<Grid Grid.Column="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					
+					<Border Grid.Column="0" Style="{StaticResource GeneralBorderStyle}">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition/>
+								<RowDefinition Height="40"/>
+							</Grid.RowDefinitions>
+							
+							<Grid Grid.Row="0"
+							Visibility="{Binding ElementName=mapListBox, Path=SelectedValue.HasPlanet, Converter={StaticResource BoolToVisibilityConverter}}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								
+								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								
+								<Border Grid.Row="1" Grid.ColumnSpan="2"
+								Margin="0,8"
+								BorderThickness="1" 
+								BorderBrush="{StaticResource ButtonBorderColor}"/>
+								
+								<Grid Grid.Column="0" Grid.Row="0">
+									<Grid.RowDefinitions>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+									</Grid.RowDefinitions>
+									
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition/>
+										<ColumnDefinition/>
+									</Grid.ColumnDefinitions>
+									
+									<TextBlock Grid.Row="0" Grid.Column="0"
+									Text="Planet"
+									VerticalAlignment="Center" 
+									Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+									
+									<TextBlock Grid.Row="1" Grid.Column="0"
+									Text="Owner"
+									VerticalAlignment="Center" 
+									Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+									
+									<TextBlock Grid.Row="2" Grid.Column="0"
+									Text="Kill Percentage"
+									VerticalAlignment="Center"
+									Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+									
+									<TextBlock Grid.Row="3" Grid.Column="0"
+									Text="Production"
+									VerticalAlignment="Center"
+									Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+									
+									<TextBlock Grid.Row="4" Grid.Column="0"
+									Text="Ships"
+									VerticalAlignment="Center"
+									Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+									
+									<TextBlock Grid.Row="0" Grid.Column="1"
+									Text="{Binding ElementName=mapListBox, Path=SelectedItem.Planet.Name}"
+									VerticalAlignment="Center"
+									Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+									
+									<TextBlock Grid.Row="1" Grid.Column="1"
+									Text="{Binding ElementName=mapListBox, Path=SelectedItem.Planet.Owner.Name}"
+									VerticalAlignment="Center"
+									Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+									
+									<ProgressBar Grid.Row="2" Grid.Column="1"
+									Margin="0,0,15,0"
+									Height="10"
+									Value="{Binding ElementName=mapListBox, Path=SelectedItem.Planet.KillPercentage}"
+									VerticalAlignment="Center"
+									Minimum="0"
+									Maximum="1" Style="{DynamicResource KillPercentageBarTemplate}"/>
+									
+									<TextBlock Grid.Row="3" Grid.Column="1"
+									Text="{Binding ElementName=mapListBox, Path=SelectedItem.Planet.ProductionRate}"
+									VerticalAlignment="Center"
+									Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+									
+									<TextBlock Grid.Row="4" Grid.Column="1"
+									Text="{Binding ElementName=mapListBox, Path=SelectedItem.Planet.Ships}"
+									VerticalAlignment="Center"
+									Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+									
+								</Grid>
+								
+								<Grid Grid.Column="1" Margin="8,0,0,0">
+									<Grid.RowDefinitions>
+										<RowDefinition/>
+										<RowDefinition/>
+									</Grid.RowDefinitions>
+									
+									<Button x:Name="setSourceButton" Grid.Row="0"
+									Width="50" Height="50"
+									IsEnabled="{Binding CurrentPlayerOwnsSelectedPlanet}"
+									VerticalAlignment="Center" 
+									Style="{StaticResource IconButtonStyle}" Click="setSourceButton_Click">
+										<Button.Content>
+											<Image Source="Images/starship.png"/>
+										</Button.Content>
+									</Button>
+									
+									<Button x:Name="setDestinationButton" Grid.Row="1"
+									Width="50" Height="50"
+									VerticalAlignment="Center"
+									
+									Style="{StaticResource IconButtonStyle}" Click="setDestinationButton_Click">
+										<Button.Content>
+												<Image Source="Images/sight.png"/>
+										</Button.Content>
+									</Button>
+								</Grid>
+							</Grid>
+							
+							<Grid Grid.Row="1"
+							Visibility="{Binding IsReadyToLaunch, Converter={StaticResource BoolToVisibilityConverter}}">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								
+								<TextBlock Grid.Row="0" 
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								Text="Launch Fleet"
+								Foreground="Red"
+								Style="{StaticResource ParameterNameStyle}"/>
+								
+								<Grid Grid.Row="1">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+									
+									<Grid Grid.Column="0">
+										<Grid.RowDefinitions>
+											<RowDefinition/>
+											<RowDefinition/>
+											<RowDefinition/>
+											<RowDefinition/>
+										</Grid.RowDefinitions>
+										
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+										</Grid.ColumnDefinitions>
+										
+										<TextBlock Grid.Row="0" Grid.Column="0"
+										VerticalAlignment="Center"
+										Text="Source"
+										Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+										
+										<TextBlock Grid.Row="1" Grid.Column="0"
+										VerticalAlignment="Center"
+										Text="Destination"
+										Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+										
+										<TextBlock Grid.Row="2" Grid.Column="0"
+										VerticalAlignment="Center"
+										Text="Arrives on"
+										Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+										
+										<TextBlock Grid.Column="0" Grid.Row="3"
+										Text="Ships"
+										VerticalAlignment="Center"
+										Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+										
+										<TextBlock Grid.Row="0" Grid.Column="1"
+										VerticalAlignment="Center"
+										Text="{Binding MapWrapper.CurrentSourcePlanet.Planet.Name}"
+										Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+										
+										<TextBlock Grid.Row="1" Grid.Column="1"
+										VerticalAlignment="Center"
+										Text="{Binding MapWrapper.CurrentDestinationPlanet.Planet.Name}"
+										Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+										
+										<TextBlock Grid.Row="2" Grid.Column="1"
+										VerticalAlignment="Center"
+										Text="{Binding FleetArrivalTurn}"
+										Style="{DynamicResource PlanetInfoTextBlockStyle}"/>
+										
+										<wpfEx:IntegerUpDown Grid.Column="1" Grid.Row="3"
+										VerticalAlignment="Center"
+										Margin="0,2,4,0"
+										Minimum="1"
+										Value="{Binding ShipsToLaunch, Mode=TwoWay}"
+										Maximum="{Binding MaxShips}" FontSize="12"/>
+										
+									</Grid>
+									
+									<Button Grid.Column="1" Name="bigRedButton"
+									VerticalAlignment="Center"
+									Margin="4,0"
+									Width="60" Height="60" Template="{DynamicResource BigRedButtonTemplate}" Click="bigRedButton_Click">
+									</Button>
+									
+								</Grid>
+								
+								<Border Grid.Row="2"
+								Margin="0,8"
+								BorderThickness="1" 
+								BorderBrush="{StaticResource ButtonBorderColor}"/>
+							
+							</Grid>
+							
+							<Grid Grid.Row="2">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition/>
+								</Grid.RowDefinitions>
+								
+								<TextBlock Grid.Row="0"
+								Text="Ordered Fleets"
+								HorizontalAlignment="Center" 
+								Style="{StaticResource ParameterNameStyle}" 
+								Foreground="Red"/>
+								
+								<ListBox Grid.Row="1"
+								Name="orderedFleetsListBox"
+								Margin="0,8,0,0" 
+								HorizontalContentAlignment="Stretch"
+								Template="{DynamicResource CustomListBoxTemplate}" 
+								Style="{DynamicResource DefaultListBoxStyle}" 
+								ItemContainerStyle="{DynamicResource GeneralListBoxItemStyle}"
+								ItemsSource="{Binding Game.FleetsToLaunchForCurrentPlayer}"
+								ItemTemplate="{DynamicResource FleetDataTemplate}"/>
+								
+							</Grid>
+							
+							<Grid Grid.Row="3" Margin="0,8,0,0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+								
+								<Button x:Name="cancelFleetButton" Grid.Column="0"
+								Content="Cancel Fleet"
+								Margin="0,0,4,0"
+								Template="{DynamicResource DefaultButtonTemplate}" 
+								Click="cancelFleetButton_Click">
+									<Button.IsEnabled>
+										<MultiBinding Converter="{StaticResource BoolAndOperatorConverter}">
+											<Binding 
+											ElementName="orderedFleetsListBox" 
+											Path="SelectedIndex" 
+											Converter="{StaticResource SelectedIndexToBoolConverter}"/>
+											
+											<Binding Path="ControlEnabled"/>
+											
+										</MultiBinding>
+									</Button.IsEnabled>
+								</Button>
+								
+								<Button x:Name="endTurnButton" Grid.Column="1"
+								Margin="4,0,0,0"
+								Content="End Turn" 
+								Template="{DynamicResource DefaultButtonTemplate}" Click="endTurnButton_Click"/>
+								
+							</Grid>
+							
+							
+							
+							
+							
+						</Grid>
+					</Border>
+					
+					<TextBlock Grid.Column="1" Text="Control Panel"
+						Style="{StaticResource GameCreatorLabelStyle}"
+						VerticalAlignment="Center">
+							<TextBlock.LayoutTransform>
+								<RotateTransform Angle="90"/>
+							</TextBlock.LayoutTransform>
+					</TextBlock>
+				</Grid>
+				
+			</Grid>
+		
+		</Grid>
+			
+	</Grid>
+</Page>

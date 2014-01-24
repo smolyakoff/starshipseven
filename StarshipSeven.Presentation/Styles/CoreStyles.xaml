@@ -1,0 +1,86 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	
+	<Style x:Key="RootGridStyle" TargetType="{x:Type Grid}">
+		<Setter Property="Background" Value="{DynamicResource DefaultBackground}"/>
+	</Style>
+	
+	<Style x:Key="GameTitleStyle" TargetType="{x:Type TextBlock}">
+		<Setter Property="Foreground" Value="White"/>
+		<Setter Property="FontSize" Value="32"/>
+		<Setter Property="FontFamily" Value="Quartz MS"/>
+	</Style>
+	
+	<Style x:Key="GameCreatorLabelStyle" TargetType="{x:Type TextBlock}">
+		<Setter Property="Foreground" Value="White"/>
+		<Setter Property="FontFamily" Value="Tempus Sans ITC"/>
+		<Setter Property="FontSize" Value="14pt"/>
+		
+	</Style>
+	<Style x:Key="GeneralBorderStyle" TargetType="{x:Type Border}">
+		<Setter Property="BorderThickness" Value="3"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource DefaultBorderColor}"/>
+		<Setter Property="CornerRadius" Value="5"/>
+		<Setter Property="Padding" Value="8"/>
+		<Setter Property="Margin" Value="8"/>
+	</Style>
+	
+	<Style x:Key="ParameterNameStyle" TargetType="{x:Type TextBlock}">
+		<Setter Property="Foreground" Value="White"/>
+		<Setter Property="FontSize" Value="16"/>
+		<Setter Property="FontFamily" Value="Pericles Light"/>
+	</Style>
+	
+	<Style x:Key="DefaultListBoxStyle" TargetType="{x:Type ListBox}">
+		<Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderColor}"/>
+	</Style>
+	
+	<Style x:Key="GameInfoLabelStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource GameTitleStyle}">
+		<Setter Property="FontSize" Value="18pt"/>
+	</Style>
+	
+	<Style x:Key="PlanetNameTextBoxStyle" TargetType="{x:Type TextBlock}">
+		<Setter Property="Foreground" Value="White"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+	</Style>
+	
+	<Style x:Key="PlanetInfoTextBlockStyle" TargetType="{x:Type TextBlock}">
+		<Setter Property="Foreground" Value="{DynamicResource DefaultTextColor}"/>
+		<Setter Property="FontFamily" Value="Pericles Light"/>
+	</Style>
+	<Style x:Key="{ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}" TargetType="{x:Type Button}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Grid>
+						<Rectangle x:Name="Border" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SnapsToDevicePixels="True"/>
+						<Polygon x:Name="Arrow" Fill="Black" HorizontalAlignment="Right" Margin="8,8,3,3" Opacity="0.15" Points="0,10 10,10 10,0" Stretch="Uniform" VerticalAlignment="Bottom"/>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Stroke" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="Fill" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Visibility" TargetName="Arrow" Value="Collapsed"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style x:Key="DefaultTextBoxStyle" TargetType="{x:Type TextBox}">
+		<Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ButtonBorderColor}"/>
+		<Setter Property="Foreground" Value="White"/>
+	</Style>
+	
+
+
+
+
+</ResourceDictionary>
