@@ -46,7 +46,7 @@ namespace StarshipSeven.Presentation
 
 		private void randomizeButton_Click(object sender, System.Windows.RoutedEventArgs e)
 		{
-			_gameConstructorModel.GameFactory.GenerateMap();
+		    _gameConstructorModel.GameFactory.GenerateMap();
 		}
 
 		private void playButton_Click(object sender, System.Windows.RoutedEventArgs e)

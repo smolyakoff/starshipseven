@@ -29,5 +29,7 @@ namespace StarshipSeven.GameInterfaces.Factories
         IMap CurrentMap { get; }
 
         IGame Construct();
+
+        void GenerateMap();
     }
 }

@@ -54,7 +54,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>COPY "$(TargetPath)" "$(SolutionDir)StarshipSeven.Presentation\bin\$(ConfigurationName)\AI\$(TargetName).dll" /y</PostBuildEvent>
+    <PostBuildEvent>if not exist "$(SolutionDir)StarshipSeven.Presentation\bin\$(ConfigurationName)\AI" mkdir "$(SolutionDir)StarshipSeven.Presentation\bin\$(ConfigurationName)\AI"
+COPY "$(TargetPath)" "$(SolutionDir)StarshipSeven.Presentation\bin\$(ConfigurationName)\AI\$(TargetName).dll" /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
